@@ -1,37 +1,153 @@
-## Welcome to GitHub Pages  
+<!DOCTYPE html>
+<html>
+  <head>
+    <style> <!-- This is the css section-->
+    #countButton {
+      padding: 5px 5px;
+    }
+    
+    #resetButton {
+      padding: 5px 5px;
+    }
+    </style>
+  </head>
+<div>
+  <form action="/action_page.php">
+    <label for="num_play">Number of players:</label>
+    <input type="text" id="num_play" name="num_play"><br><br>
+    <label for="num_prize">Number of small prizes:*</label>
+    <input type="text" id="num_prize" name="num_prize"><br><br> 
+    <label for="c_goal">Click goal:</label>
+    <input type="text" id="c_goal" name="c_goal"><br><br>
+    <input type="button" value="Submit" id="submitButton" />
+  </form>
+  <br>
+  <center>
+  <img id="myImage" src="https://assets-jpcust.jwpsrv.com/thumbnails/rytmbwxn-720.jpg" style="height:300px">
+  <br>
+  <h1><span id="displayPrize"></span></h1>
+  <br><input type="button" value="CLICK HERE" id="countButton" />
+  Button was pressed - <span id="displayCount">0</span> - times.
+  <input type="button" value="RESET" id="resetButton" />
+  </center>
+  <br>*Should not exceed number of players
+  <!--<br>Random prize increment: <span id="displayInc"></span>
+  <br>YOUR random prize number/list: <span id="displayRandom"></span>
+  <br> Prize thresholds: <span id="displayPrizeThresh"></span>
+  <br> YOUR random Prize thresholds: <span id="displayYourRandomPrize"></span>-->
+  
+  <script> <!-- This is the js section-->
+    var count = 0;
+    var countButton = document.getElementById("countButton");
+    var displayCount = document.getElementById("displayCount");
+    var taunt = "";
+    var levels = [1,2,3,4,5,6,7,8,9,10,11];
+    var images = ['https://st2.depositphotos.com/2605379/11771/i/950/depositphotos_117710544-stock-photo-businessperson-looking-at-huge-gift.jpg',
+    'https://previews.123rf.com/images/peshkov/peshkov1607/peshkov160700445/61000017-businessman-dragging-huge-present-box-on-abstract-city-background-3d-rendering.jpg',
+    'https://previews.123rf.com/images/peshkov/peshkov1607/peshkov160700444/60999688-hombre-de-negocios-empujando-enorme-caja-presente-en-el-fondo-abstracto-representaci%C3%B3n-3d.jpg',
+    'https://previews.123rf.com/images/gearstd/gearstd1706/gearstd170600169/81165334-un-peque%C3%B1o-hombre-de-negocios-tratando-de-entrar-en-una-enorme-caja-de-regalo-blanco-y-rojo-.jpg',
+    'https://i.dailymail.co.uk/i/pix/2012/12/31/article-2255414-16B476BA000005DC-760_634x334.jpg',
+    'https://www.verdict.co.uk/wp-content/uploads/2018/11/shutterstock_712915198-e1542045457155.jpg',
+    'https://www.avera.org/app/files/public/parent-giving-christmas-gift-to-child.jpg',
+    'https://img.utopia.de/D9tY2gbwItxdyRdv-Xb6StkMl0Q=/640x300/https://utopia.org/app/uploads/2021/11/gift-wrapping-v-przemekklos-191106-1280x720.jpg',
+    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/christmas-gift-royalty-free-image-617901640-1537974226.jpg',
+    'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX1595004.jpg',
+    'https://thumbs.dreamstime.com/b/small-green-present-man-s-hand-18051327.jpg'];
+    var prize_threshold = [];
+    var random = Math.floor(Math.random() * prize_threshold.length);
+    console.log(random, prize_threshold[random]);
+    var num_players;
+    var num_prizes;
+    var big_win;
+    var divisible;
+    var level_inc;
+    var d = new Date();
+    var hour;
+    var minute;
+    var seconds;
+    
+    document.getElementById("countButton").disabled = true;
+    document.getElementById('myImage').src=images[0];
+    
+	submitButton.onclick = function() {
+      num_players = document.getElementById("num_play").value;
+      num_prizes = document.getElementById("num_prize").value;
+      big_win = document.getElementById("c_goal").value;
+      increment = (big_win / (parseInt(num_players)+1));
+      prize_threshold = [increment, increment*2,increment*3,increment*4,increment*5,increment*6,increment*7,increment*8,increment*9,increment*10,increment*11,increment*12,increment*13,increment*14,increment*15,increment*16,increment*17,increment*18,increment*19,increment*20,increment*21,increment*22,increment*23,increment*24,increment*25,increment*26,increment*27,increment*28,increment*29,increment*30];
+      level_inc = (parseInt(big_win)/10)
+      levels = [level_inc+1,level_inc*2,level_inc*3,level_inc*4,level_inc*5,level_inc*6,level_inc*7,level_inc*8,level_inc*9,level_inc*10,level_inc*11];
+      random = Math.floor(Math.random() * Math.floor(num_players));
+      your_random_prize_level = Math.round(prize_threshold[random]);
+      count = 0;
+    
+    	document.getElementById("countButton").disabled = false;
+    	displayPrizeThresh.innerHTML = prize_threshold;
+    	displayInc.innerHTML = increment;
+    	displayRandom.innerHTML = random;
+        displayYourRandomPrize.innerHTML = your_random_prize_level;
+      }
+      
+    countButton.onclick = function() {
+      count++;
+      displayCount.innerHTML = count;
+      if (count >=  big_win) prize = ("You've won the big kahuna!!!!");
+      	else if (count == your_random_prize_level) prize = ("You've won a prize!!!"); 
+     		else if (count < levels[0]) prize = "keep unwrapping!";
+            	else if (count < levels[1]) prize = "hard work pays off...";
+                	else if (count < levels[2]) prize = "you're gettin there!!";
+                    	else if (count < levels[3]) prize = "don't give up!!";
+                        	else if (count < levels[4]) prize = "soooo close!";
+                            	else if (count < levels[5]) prize = "any minute now!!!";
+                                	else if (count < levels[6]) prize = "flex those clickin' muscles!!!"
+                                    	else if (count < levels[7]) prize = "this is what you've trained for!!!!!"
+                                        	else if (count < levels[8]) prize = "is that all you got???!!!"
+                                            	else if (count < levels[9]) prize = "so close you can taste it!!!!!!!"
+                                                	else if (count < levels[10]) prize = "just... a little... longer!!!"
+                    
+      if (count >= big_win) {  document.getElementById('myImage').src="https://graphicriver.img.customer.envatousercontent.com/files/211924165/open-gift-balloon2-Preview.jpg?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=0bc8594e68150487c5a2817c5d196021";
+      
+      }
+          else if (count == your_random_prize_level) { document.getElementById('myImage').src="https://graphicriver.img.customer.envatousercontent.com/files/211924165/open-gift-balloon2-Preview.jpg?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=0bc8594e68150487c5a2817c5d196021";
+          }
+              else if (count < levels[0]) document.getElementById('myImage').src=images[0];
+                  else if (count < levels[1]) document.getElementById('myImage').src=images[1];
+                      else if (count < levels[2]) document.getElementById('myImage').src=images[2];
+                          else if (count < levels[3]) document.getElementById('myImage').src=images[3];
+                              else if (count < levels[4]) document.getElementById('myImage').src=images[4];
+                                  else if (count < levels[5]) document.getElementById('myImage').src=images[5];
+                                      else if (count < levels[6]) document.getElementById('myImage').src=images[6]
+                                          else if (count < levels[7]) document.getElementById('myImage').src=images[7]
+                                              else if (count < levels[8])  document.getElementById('myImage').src=images[8]
+                                                  else if (count < levels[9])  document.getElementById('myImage').src=images[9]
+                                                  	else if (count < levels[10])  document.getElementById('myImage').src=images[10]
+                                               
+	if (count >= big_win) {document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/e5/83/3e/e5833e1bea7d379f0f4e4ae250b7cf81.gif')";
+    document.getElementById("countButton").disabled = true;}
 
-You can use the [editor on GitHub](https://github.com/stimsssss/niftygifty.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+    	else if (count == your_random_prize_level) {document.body.style.backgroundColor = "lightPink" ;
+        document.getElementById("countButton").disabled = true;
+        setTimeout(function() {
+            document.getElementById("countButton").disabled = false;
+        }, 2500);
+        
+        	}
+    else  {document.body.style.backgroundColor = "white"} ;
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+      displayPrize.innerHTML = prize;
+      
+    
+    
+    }
+    resetButton.onclick = function() {
+      count = 0;
+      displayCount.innerHTML = count;
+      taunt = "";
+      displayTaunt.innerHTML = taunt;
+      document.body.style.backgroundColor = "white";
+      document.getElementById("countButton").disabled = false;
+    }
+    </script>
+</div>
+</html>
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/stimsssss/niftygifty.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
