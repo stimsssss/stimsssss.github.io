@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <div>
+    <h1><span id="output"></span></h1>
+  </div>
+  <script>
+    import React from 'react'; // get the React object from the react module
+    import {useEffect} from "react";
+    var data = document.getElementById('output');
+
+    fetch('https://api.covidtracking.com/v1/us/current.json')
+    .then(response => response.json())
+    .then(data => {
+    console.log(data) // Prints result from `response.json()` in getRequest
+    })
+    .catch(error => console.error(error));
+    document.getElementById('output') = data
+  </script>
+  <body>
+  </body>
+  </html>
